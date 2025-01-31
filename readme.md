@@ -6,9 +6,15 @@ This repository contains the code for the following paper:
 
 ### Overview
 
+> The repo contains an entropy-based algorithm for automated temperature optimization in multi-sample aggregation strategies, eliminating the need for labeled validation data.
+>
+> Our predicted temperature has very high correlation to the best temperature from grid search regarding to accuracy (Fig 1).
+
+![My Image](figs/correlation_accuracy.png)
+
 ### Setup
 
-You can use our code for automatic temperature selection.  
+You can use our code for automatic temperature selection. Given a model and a task, TURN algorithm automatically predicts a suitable temperature.
 
 We support models from Hugging Face or local checkpoints.
 
@@ -18,7 +24,6 @@ Ensure your test data is in JSONL format, structured as follows:
 ```json
 {"query": "[query 1]"}
 {"query": "[query 2]"}
-...
 ```
 
 #### Step 2: Run the Inference Script  
@@ -33,11 +38,14 @@ This will output a suitable temperature for multi-sample aggregation. We current
 
 ### Reproducing Results  
 
-To reproduce the results in our paper, refer to the guidelines in:  
+To reproduce the results in our paper, refer to the guidelines in:
 - `CODE/readme.md` for the MBPP dataset
 - `MATH/readme.md` for the MATH dataset
 
+Some additional dependency package may need be installed.
+
 ### Acknowledgements  
 
-Our project builds upon *Easy-to-Hard Generation* and *bigcode-evaluation-harness*.  
-Special thanks to *vLLM* for its efficient inference infrastructure.  
+Our project builds upon *[Easy-to-Hard Generation](https://github.com/Edward-Sun/easy-to-hard)* and *[bigcode-evaluation-harness](https://github.com/bigcode-project/bigcode-evaluation-harness)*.
+
+Special thanks to *[vLLM](https://github.com/vllm-project/vllm)* for its efficient inference infrastructure.
