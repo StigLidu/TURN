@@ -1,0 +1,16 @@
+apex==0.9.10dev
+datasets==2.21.0
+einops==0.8.0
+fire==0.6.0
+huggingface_hub==0.24.6
+numpy==2.1.1
+pandas==2.2.2
+pylatexenc==2.10
+PyYAML==6.0.2
+Requests==2.32.3
+sentencepiece==0.2.0
+sympy==1.12
+torch==2.4.1
+tqdm==4.66.5
+transformers==4.44.2
+wandb==0.17.9

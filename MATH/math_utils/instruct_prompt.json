@@ -1,0 +1,18 @@
+{
+    "deepseek-math-7b-instruct": {
+        "instruct": "\nPlease reason step by step, and put your final answer within $\\boxed{}$. \n\n",
+        "parse_sentence": ["\\boxed{", "}"]
+    },
+    "deepseek-math-7b-rl": {
+        "instruct": "\nPlease reason step by step, and put your final answer within $\\boxed{}$. \n\n",
+        "parse_sentence": ["\\boxed{", "}"]
+    },
+    "llemma-7b-sft-metamath-level-1to3-hf": {
+        "instruct": "\n\n# Solution\n\n",
+        "parse_sentence": ["# Answer", ""]
+    },
+    "OpenMath2-Llama3.1-8B": {
+        "instruct": "Solve the following math problem. Make sure to put the answer (and only answer) inside \\boxed{}.\n\n",
+        "parse_sentence": ["\\boxed{", "}"]
+    }
+}

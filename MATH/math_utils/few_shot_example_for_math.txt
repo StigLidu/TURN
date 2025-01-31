@@ -1,0 +1,32 @@
+Example:
+
+Question 1: How many vertical asymptotes does the graph of $y=\\frac{2}{x^2+x-6}$ have?
+Answer 1: Step 1: The denominator of the rational function factors into $x^2+x-6=(x-2)(x+3)$. 
+Step 2: Since the numerator is always nonzero, there is a vertical asymptote whenever the denominator is $0$, which occurs for $x = 2$ and $x = -3$.  
+Step 3: Therefore, the graph has $\\boxed{2}$ vertical asymptotes.
+
+The answer is: 2
+
+Question 2: If $5x - 3 = 12$, what is the value of $5x + 3$?
+Answer 2: Step 1: Adding 6 to both sides of $5x - 3 =12$ gives $5x -3 + 6 = 12 + 6$. 
+Step 2: Simplifying both sides gives $5x + 3 = \\boxed{18}$.
+
+The answer is: 18
+
+Question 3: Ryan has 3 red lava lamps and 3 blue lava lamps. He arranges them in a row on a shelf randomly, then turns 3 random lamps on. What is the probability that the leftmost lamp on the shelf is red, and the leftmost lamp which is turned on is also red?
+Answer 3: Step 1: There are $\\binom{6}{3}=20$ ways for Ryan to arrange the lamps, and $\\binom{6}{3}=20$ ways for him to choose which lamps are on, giving $20\\cdot20=400$ total possible outcomes.
+Step 2: There are two cases for the desired outcomes: either the left lamp is on, or it isn't. If the left lamp is on, there are $\\binom{5}{2}=10$ ways to choose which other lamps are on, and $\\binom{5}{2}=10$ ways to choose which other lamps are red.
+Step 3: This gives $10\\cdot10=100$ possibilities. If the first lamp isn't on, there are $\\binom{5}{3}=10$ ways to choose which lamps are on, and since both the leftmost lamp and the leftmost lit lamp must be red, there are $\\binom{4}{1}=4$ ways to choose which other lamp is red. 
+Step 4: This case gives 40 valid possibilities, for a total of 140 valid arrangements out of 400. 
+Step 5: Therefore, the probability is $\\dfrac{140}{400}=\\boxed{\\dfrac{7}{20}}$.
+
+The answer is: \\dfrac{7}{20}
+
+Question 4: Alice wants to buy $3$ pounds of veal at the grocery store, but the scales at the store only show weight in kilograms. If one kilogram is $2.20$ pounds, how many kilograms of veal should Alice buy?  (You may use a calculator on this problem; answer to the nearest hundredth.)
+Answer 4: Step 1: Since Alice wants to buy $3$ pounds of veal, we multiply the quantity of $3$ pounds by the conversion factor $\\frac{1\\ \\text{kg}}{2.20\\ \\text{lb}}$ to obtain $3\\ \\text{lb} \\cdot \\frac{1\\ \\text{kg}}{2.20\\ \\text{lb}} \\approx \\boxed{1.36}\\ \\text{kg}$.
+
+The answer is: 1.36
+
+Following the previous structure to answer the following question:
+
+Question 5:
