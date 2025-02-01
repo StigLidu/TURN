@@ -1,4 +1,4 @@
-## TURN: Optimizing Temperature for Language Models with Multi-Sample Inference
+## <em>TURN</em>: Optimizing Temperature for Language Models with Multi-Sample Inference
 
 This repository contains the code for the following paper:
 
@@ -6,17 +6,27 @@ This repository contains the code for the following paper:
 
 ### Overview
 
-> The repo contains an entropy-based algorithm for automated temperature optimization in multi-sample aggregation strategies, eliminating the need for labeled validation data.
+> The repo contains an entropy-based algorithm, <em>TURN</em>, for automated temperature optimization in multi-sample aggregation strategies, eliminating the need for labeled validation data.
 >
-> Our predicted temperature has very high correlation to the best temperature from grid search regarding to accuracy (Fig 1).
+> Our predicted temperature has very high correlation to the best temperature from grid search regarding to accuracy (Fig. [1](#image1)).
 
-![My Image](figs/correlation_accuracy.png)
+<a id="image1"></a>
+<div style="text-align: center;">
+<img src="figs/correlation_accuracy.png" alt="The accuracies between predicted temperature and best from grid search have high correlation." width="700" height="400">
+</div>
 
 ### Setup
 
 You can use our code for automatic temperature selection. Given a model and a task, TURN algorithm automatically predicts a suitable temperature.
 
 We support models from Hugging Face or local checkpoints.
+
+#### Step 0: Install Requirements
+```bash
+conda create -n TURN python=3.11
+conda activate TURN
+pip install -e requirements.txt
+```
 
 #### Step 1: Prepare the Test Data  
 
