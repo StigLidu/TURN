@@ -14,7 +14,7 @@ This repository contains the code for the following paper:
 
 <a id="image1"></a>
 <div style="text-align: center;">
-<img src="figs/correlation_accuracy.png" alt="The accuracies between predicted temperature and best from grid search have high correlation." width="700" height="400">
+<img src="figs/correlation_accuracy.png" alt="The accuracies between predicted temperature and best from grid search have high correlation." width="550" height="300">
 </div>
 
 ### Usage
