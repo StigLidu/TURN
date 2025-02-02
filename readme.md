@@ -47,7 +47,7 @@ python predict.py --model_path [LLM_PATH] --data_path [DATA_PATH] --aggregation_
 ```
 This will output a suitable temperature for multi-sample aggregation. We currently support majority voting (MJ) and Best-of-N (BofN). The default setting may takes ~1h to predict the temperature on a A6000 GPU.
 
-> **TODO:** Extend support for additional aggregation strategies.
+**TODO:** Extend support for additional aggregation strategies.
 
 ### Reproducing Results  
 
