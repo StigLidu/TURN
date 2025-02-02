@@ -32,8 +32,8 @@ pip install -e requirements.txt
 
 Ensure your test data is in JSONL format, structured as follows:  
 ```json
-{"query": "[query 1]"}
-{"query": "[query 2]"}
+{"problem": "[problem 1]"}
+{"problem": "[problem 2]"}
 ```
 
 #### Step 2: Run the Inference Script  
@@ -42,7 +42,7 @@ Execute the following command to determine the optimal temperature:
 ```bash
 python predict.py --model_path [LLM_PATH] --data_path [DATA_PATH] --aggregation_strategy [MJ/BofN]
 ```
-This will output a suitable temperature for multi-sample aggregation. We currently support majority voting (MJ) and Best-of-N (BofN).
+This will output a suitable temperature for multi-sample aggregation. We currently support majority voting (MJ) and Best-of-N (BofN). The default setting may takes ~1h to predict the temperature on a A6000 GPU.
 
 > **TODO:** Extend support for additional aggregation strategies.
 

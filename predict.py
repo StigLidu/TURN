@@ -6,6 +6,30 @@ from typing import List
 import torch
 import numpy as np
 
+def calc_turning_point(x_values, log_y_values):
+    # Calculate the first derivative
+    dy_dx = np.gradient(log_y_values, x_values)
+
+    # Calculate the second derivative
+    d2y_dx2 = np.gradient(dy_dx, x_values)
+
+    print("dy_dx: ", dy_dx)
+    print("d2y_dx2: ", d2y_dx2)
+    
+    # The first time the second derivative is greater than zero is the turning point
+    mask = d2y_dx2[1:-1] > 0
+    if not np.any(mask):
+        # handle "no positive second derivative" case
+        mask[-1] = True
+    turning_point_index = np.where(mask)[0][0]  # first True
+    turning_point_index += 1
+    return x_values[turning_point_index]
+
+AGGREGATION_ADAPTOR = {
+    "BofN": 0.1,
+    "MJ": 0.0,
+}
+
 class TypicalLogitsWarperWrapper:
     def __init__(self, mass: float):
         self.warper = TypicalLogitsWarper(mass=mass)
@@ -17,9 +41,7 @@ class TypicalLogitsWarperWrapper:
 
 def main(
     data: List[dict],
-    output_file: str,
-    instruction_file: str,
-    gpu_id: int,
+    model: LLM,
     batch_size: int,
     num_samples: int,
     max_new_tokens: int,
@@ -27,21 +49,9 @@ def main(
     top_p: float,
     min_p: float,
     temperature: float,
-    model_path: str,
-    tokenizer_path: str,
-    resume_generation: bool,
     typical_sampling: bool,
-    few_shot: bool,
-    reparse: bool,
-    infer_entropy: bool = False,
-    max_parse_length: int = 100
-    ) -> None:
-
-    if infer_entropy:
-        logprobs = 1000
-    else:
-        logprobs = 0
-
+    logprobs: int,
+    ) -> float:
     sampling_params = SamplingParams(
             temperature=temperature, 
             top_k=top_k,
@@ -49,7 +59,6 @@ def main(
             min_p=min_p,
             max_tokens=max_new_tokens, 
             n = min(batch_size, num_samples),
-            stop= "Question 6:",
             logprobs = logprobs,
     )
     if typical_sampling:
@@ -59,7 +68,6 @@ def main(
             temperature=temperature, 
             max_tokens=max_new_tokens, 
             n = min(batch_size, num_samples),
-            stop= "Question 6:",
             logits_processors=[TypicalLogitsWarperWrapper(mass=0.8)],
             logprobs=logprobs,
         )
@@ -72,38 +80,15 @@ def main(
     print("sampling_params: ")
     print(sampling_params)
 
-    output_file = str(output_file)
     answered_length = 0
-    if os.path.exists(output_file):
-        # resume inference
-        if resume_generation:
-            with open(output_file, "r") as f:
-                answered_problems = [json.loads(line) for line in f]
-                answered_length = len(answered_problems)
-            print(f"Answered {answered_length} problems")
-        else:
-            assert False, f"Output file {output_file} already exists"
 
     instruct_prompt = ""
-    if instruction_file is not None:
-        with open(instruction_file, "r") as f:
-            instruct_prompts = json.load(f)
-        if str(model_path).split("/")[-1] in instruct_prompts:
-            instruct_prompt = instruct_prompts[str(model_path).split("/")[-1]]['instruct']
+    #TODO: add instruction prompt
 
-    print("instruct_prompt: ", instruct_prompt)
-
-    output_writer = open(output_file, "a")
     problems = data
 
-    if answered_length < len(problems):
-        if tokenizer_path is None:
-            tokenizer_path = model_path
-        model = LLM(model=str(model_path), tokenizer = tokenizer_path, max_logprobs=logprobs, swap_space=8)
-
-    for id in tqdm(range(len(problems)), desc="sampling"):
-        if id < answered_length:
-            continue
+    total_entropy = 0
+    for id in tqdm(range(0, len(problems), problem_per_batch), desc="sampling"):
         output = []
         entropy = []
         if problem_per_batch == 1:
@@ -151,9 +136,9 @@ def main(
                 problems[id + i]["entropy"] = entropy
         answered_length += min(problem_per_batch, len(problems) - id)
         for i in range(min(problem_per_batch, len(problems) - id)):
-            output_writer.write(json.dumps(problems[id + i]) + "\n")
-        output_writer.flush()
-    output_writer.close()
+            total_entropy += np.mean(problems[id + i]["entropy"])
+    print(f"Mean entropy at temperature {temperature}: ", total_entropy / len(problems))
+    return total_entropy / len(problems)
 
 if __name__ == "__main__":
     import argparse
@@ -168,10 +153,10 @@ if __name__ == "__main__":
         help="File containing prompts, one per line.",
     )
     parser.add_argument(
-        "--output_file",
+        "--output_path",
         type=str,
-        required=True,
-        help="File to write generated samples to.",
+        default="entropy.json",
+        help="Output file path.",
     )
     parser.add_argument(
         "--instruction_file",
@@ -192,8 +177,8 @@ if __name__ == "__main__":
         help="Maximum temperature for entropy calculation.",
     )
     parser.add_argument("--gpu_id", type=int, help="GPU ID.", default=0)
-    parser.add_argument("--batch_size", type=int, default=4, help="Batch size.")
-    parser.add_argument("--num_samples", type=int, default=1, help="Number of samples.")
+    parser.add_argument("--batch_size", type=int, default=16, help="Batch size.")
+    parser.add_argument("--num_samples", type=int, default=32, help="Number of samples.")
     parser.add_argument(
         "--max_new_tokens", type=int, default=1024, help="Maximum number of new tokens."
     )
@@ -244,6 +229,18 @@ if __name__ == "__main__":
         help="Whether to use typical sampling.",
         default=False,
     )
+    parser.add_argument(
+        "--logprobs",
+        type=int,
+        default=1000,
+        help="Number of logprobs to store.",
+    )
+    parser.add_argument(
+        "--aggregation_strategy",
+        type=str,
+        default="MJ",
+        help="Aggregation strategy.",
+    )
     args = parser.parse_args()
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -258,26 +255,53 @@ if __name__ == "__main__":
     else:
         sample_per_problem = args.num_samples // len(problems)
 
+    if args.tokenizer_path is None:
+        args.tokenizer_path = args.model_path
+
+    model = LLM(model=str(args.model_path), tokenizer = args.tokenizer_path, max_logprobs=args.logprobs, swap_space=8)
+
+    entropy = []
+    temp = []
+
+    pre_entropy_dict = {}
+    if os.path.exists(args.output_path):
+        with open(args.output_path, "r") as f:
+            output = json.load(f)
+            if "entropy" in output:
+                pre_entropy_dict = output["entropy"]
+                pre_entropy_dict = {f"{float(k):.2f}": v for k, v in pre_entropy_dict.items()}
+                print("Pre-entropy: ", pre_entropy_dict)
+
     for t in all_test_tempertures:
         args.temperature = t
         args.num_samples = sample_per_problem
-        main(
-            data=problems,
-            output_file=args.output_file,
-            instruction_file=args.instruction_file,
-            gpu_id=args.gpu_id,
-            batch_size=args.batch_size,
-            num_samples=args.num_samples,
-            max_new_tokens=args.max_new_tokens,
-            top_k=args.top_k,
-            top_p=args.top_p,
-            min_p=args.min_p,
-            typical_sampling=args.typical_sampling,
-            temperature=args.temperature,
-            model_path=args.model_path,
-            tokenizer_path=args.tokenizer_path,
-            resume_generation=args.resume_generation,
-            few_shot=args.few_shot,
-            reparse=args.reparse,
-            infer_entropy=True,
-        )
+        if f"{t:.2f}" in pre_entropy_dict:
+            average_e = pre_entropy_dict[f"{t:.2f}"]
+        else:
+            average_e = main(
+                data=problems,
+                model=model,
+                batch_size=args.batch_size,
+                num_samples=args.num_samples,
+                max_new_tokens=args.max_new_tokens,
+                top_k=args.top_k,
+                top_p=args.top_p,
+                min_p=args.min_p,
+                typical_sampling=args.typical_sampling,
+                temperature=args.temperature,
+                logprobs=args.logprobs,
+            )
+        entropy.append(average_e)
+        temp.append(f"{t:.2f}")
+    print("Entropy: ", entropy)
+    print("Temperature: ", temp)
+    entropy_dict = dict(zip(temp, entropy))
+    turning_point = calc_turning_point(all_test_tempertures, np.log(entropy))
+    predicted_temperature = turning_point + AGGREGATION_ADAPTOR[args.aggregation_strategy]
+    print("Predicted temperature: ", predicted_temperature)
+    output = {
+        "entropy": entropy_dict,
+        "predicted_temperature": predicted_temperature,
+    }
+    with open(args.output_path, "w") as f:
+        json.dump(output, f)
