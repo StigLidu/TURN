@@ -8,6 +8,8 @@ This repository contains the code for the following paper:
 
 > The repo contains an entropy-based algorithm, <em>TURN</em>, for automated temperature optimization in multi-sample aggregation strategies, eliminating the need for labeled validation data.
 >
+> Multi-sample aggregation strategies (i.e., Best-of-N, Majority Voting) are widely used to achieve state-of-the-art performances, and we are the first to provide a systematic analysis for temperature selection in these strategies.
+>
 > Our predicted temperature has very high correlation to the best temperature from grid search regarding to accuracy (Fig. [1](#image1)).
 
 <a id="image1"></a>
@@ -15,9 +17,9 @@ This repository contains the code for the following paper:
 <img src="figs/correlation_accuracy.png" alt="The accuracies between predicted temperature and best from grid search have high correlation." width="700" height="400">
 </div>
 
-### Setup
+### Usage
 
-You can use our code for automatic temperature selection. Given a model and a task, TURN algorithm automatically predicts a suitable temperature.
+You can use our code for automatic temperature selection. Given a model and a task, TURN algorithm automatically predicts a suitable temperature for multi-sample aggregation strategy.
 
 We support models from Hugging Face or local checkpoints.
 
@@ -34,6 +36,8 @@ Ensure your test data is in JSONL format, structured as follows:
 ```json
 {"problem": "[problem 1]"}
 {"problem": "[problem 2]"}
+// Each line is a piece of input ...
+{"problem": "[problem K]"}
 ```
 
 #### Step 2: Run the Inference Script  

@@ -293,6 +293,13 @@ if __name__ == "__main__":
             )
         entropy.append(average_e)
         temp.append(f"{t:.2f}")
+        # save intermediate results
+        output = {
+            "entropy": dict(zip(temp, entropy)),
+        }
+        with open(args.output_path, "w") as f:
+            json.dump(output, f)
+
     print("Entropy: ", entropy)
     print("Temperature: ", temp)
     entropy_dict = dict(zip(temp, entropy))
