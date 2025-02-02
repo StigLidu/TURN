@@ -33,7 +33,7 @@ pip install -e requirements.txt
 #### Step 1: Prepare the Test Data  
 
 Ensure your test data is in JSONL format, structured as follows:  
-```json
+```jsonl
 {"problem": "[problem 1]"}
 {"problem": "[problem 2]"}
 # Each line is a piece of input ...
