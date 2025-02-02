@@ -36,7 +36,7 @@ Ensure your test data is in JSONL format, structured as follows:
 ```json
 {"problem": "[problem 1]"}
 {"problem": "[problem 2]"}
-// Each line is a piece of input ...
+# Each line is a piece of input ...
 {"problem": "[problem K]"}
 ```
 
