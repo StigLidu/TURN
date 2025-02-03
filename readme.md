@@ -93,14 +93,14 @@ python predict.py \
 
 ```bash
 python predict.py \
-    --model_path models/meta-llama/Llama-3.1-8B-Instruct \
+    --model_path nvidia/OpenMath2-Llama3.1-8B \
     --data_path data/test_data.jsonl \
     --aggregation_strategy MJ
 ```
 
 **Output**:
 ```plaintext
-Predicted temperature:  0.6
+Predicted temperature:  [predicted temperature]
 ```
 
 ### Arguments
