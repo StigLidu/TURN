@@ -32,7 +32,7 @@ fi
 
 CUDA_VISIBLE_DEVICES=${DEVICES} python hugging_inference.py \
     --prompt_file ${PROBLEM_FILE} \
-    --output_file TE_result/TE_result/${LLM_NAME}/${LLM_NAME}-${FLITER}-temp${TEMPERATURE}_${NUM_SAMPLES}.json \
+    --output_file results/${LLM_NAME}/${LLM_NAME}-${FLITER}-temp${TEMPERATURE}_${NUM_SAMPLES}.json \
     --max_new_tokens 1024 \
     --temperature ${TEMPERATURE} \
     --num_samples ${NUM_SAMPLES} \
@@ -48,5 +48,5 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python hugging_inference.py \
 python cal_entropy.py \
     --answer_name ${LLM_NAME}-${FLITER}-temp${TEMPERATURE} \
     --problem_file ${PROBLEM_FILE} \
-    --result_folder TE_result/TE_result/${LLM_NAME}/ \
+    --result_folder results/${LLM_NAME}/ \
     --num_samples ${NUM_SAMPLES}

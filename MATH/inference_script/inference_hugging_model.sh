@@ -6,10 +6,7 @@ FEW_SHOT=$4
 FLITER=$5
 RANGE=$6
 DEVICES=$7
-if [ "$RANGE" = "500" ]; then
-    PROBLEM_FILE="downloads/math_splits/test.jsonl"
-else
-    PROBLEM_FILE="downloads/math_splits/test_filtered.jsonl"
+PROBLEM_FILE="downloads/math_splits/test_filtered.jsonl"
 fi
 if [ "$FEW_SHOT" = "yes" ]; then
     EXTRA_ARG="--few_shot"
@@ -34,14 +31,14 @@ else
     EXTRA_ARG2="--top_k 20"
 fi
 
-folder=TE_result/TE_result/${LLM_NAME}
+folder=results/${LLM_NAME}
 if [ ! -d "$folder" ]; then
     mkdir -p $folder
 fi
 
 CUDA_VISIBLE_DEVICES=${DEVICES} python hugging_inference.py \
     --prompt_file ${PROBLEM_FILE} \
-    --output_file TE_result/TE_result/${LLM_NAME}/${LLM_NAME}-${FLITER}-temp${TEMPERATURE}_${NUM_SAMPLES}.json \
+    --output_file results/${LLM_NAME}/${LLM_NAME}-${FLITER}-temp${TEMPERATURE}_${NUM_SAMPLES}.json \
     --max_new_tokens 1024 \
     --temperature ${TEMPERATURE} \
     --num_samples ${NUM_SAMPLES} \
@@ -53,4 +50,4 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python hugging_inference.py \
     ${EXTRA_ARG2} \
     --reparse
 
-bash inference_script/cal_acc.sh ${LLM_NAME}-${FLITER}-temp${TEMPERATURE} ${PROBLEM_FILE} TE_result/TE_result/${LLM_NAME}/
+bash inference_script/cal_acc.sh ${LLM_NAME}-${FLITER}-temp${TEMPERATURE} ${PROBLEM_FILE} results/${LLM_NAME}/

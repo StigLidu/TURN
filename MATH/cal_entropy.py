@@ -23,7 +23,7 @@ if "__main__" == __name__:
     parser.add_argument(
         "--result_folder",
         type=Path,
-        default="TE_result/TE_result/",
+        default="results/",
         help="File containing prompts, one per line.",
     )
     parser.add_argument(
