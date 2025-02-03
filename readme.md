@@ -69,8 +69,7 @@ Prepare your test data in JSONL format, with **one entry per line**. For instanc
 {"problem": "Prove the Pythagorean theorem."}
 ```
 
-- Each JSON object must include a `"problem"` key.  
-- You can adapt the structure if your model expects other fields, but make sure to update the code accordingly.
+- Each JSON object must include a `"problem"` key.
 
 Our implementation works with Hugging Face models or local checkpoints.
 
