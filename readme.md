@@ -5,10 +5,9 @@
 ## Table of Contents
 1. [Overview](#overview)
 2. [Installation](#installation)
-3. [Data Preparation](#data-preparation)
+3. [Data & Model Preparation](#data-and-model-preparation)
 4. [Usage](#usage)
 5. [Reproducing Results](#reproducing-results)
-6. [Contributing](#contributing)
 7. [License](#license)
 8. [Citation](#citation)
 9. [Acknowledgements](#acknowledgements)
@@ -60,7 +59,7 @@ This repository contains the official implementation of our paper:
 
 ---
 
-## Data & Model Preparation
+## Data and Model Preparation
 
 Prepare your test data in JSONL format, with **one entry per line**. For instance:
 
@@ -146,4 +145,7 @@ We extend our gratitude to the following open-source projects for their foundati
 
 ---
 
-*Thank you for using TURN! Feel free to open an issue or pull request if you have any questions or suggestions.*
+## Contact
+For any questions or inquiries, please contact:
+
+- Weihua Du [weihuad@cs.cmu.edu](mailto:weihuad@cs.cmu.edu)
