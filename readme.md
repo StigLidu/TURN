@@ -67,7 +67,6 @@ Prepare your test data in JSONL format, with **one entry per line**. For instanc
 {"problem": "What is 1+1? Provide the answer in detail."}
 {"problem": "Explain the concept of derivatives in calculus."}
 {"problem": "Prove the Pythagorean theorem."}
-...
 ```
 
 - Each JSON object must include a `"problem"` key.  
