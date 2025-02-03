@@ -4,9 +4,18 @@ DEVICES=$7
 LLM_REPO_AUTHOR=$2
 LLM_NAME=$3
 FEW_SHOT=$4
-FLITER=$5 #TODO
+FLITER=$5
 TASK=$6
 LIMIT=100
+
+if [ "$FLITER" = "p" ]; then
+    EXTRA_ARG2="--top_p 0.9"
+elif [ "$FLITER" = "n" ]; then
+    EXTRA_ARG2=""
+else
+    FLITER="k"
+    EXTRA_ARG2="--top_k 20"
+fi
 
 if [ "$FEW_SHOT" = "yes" ]; then
     EXTRA_ARG="--few_shot"
@@ -30,7 +39,6 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python main.py \
   --metric_output_path results/${LLM_NAME}/${TASK}-${LIMIT}-temp${TEMPERATURE}-${NUM_SAMPLES}-metrics.json \
   --save_every_k_tasks 1 \
   --load_generations_path results/${LLM_NAME}/${TASK}-${LIMIT}-temp${TEMPERATURE}-${NUM_SAMPLES}_${TASK}.json \
-  --top_k 0 \
-  --top_p 1.0 \
   ${EXTRA_ARG} \
+  ${EXTRA_ARG2}
 #  --load_generations_path results/${LLM_NAME}/${TASK}-${LIMIT}-temp${TEMPERATURE}-${NUM_SAMPLES}_${TASK}.json

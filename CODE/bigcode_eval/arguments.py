@@ -24,7 +24,7 @@ class EvalArguments:
         default=0, metadata={"help": "Top-k parameter used for generation."}
     )
     top_p: Optional[float] = field(
-        default=0.95, metadata={"help": "Top-p parameter used for nucleus sampling."}
+        default=1.00, metadata={"help": "Top-p parameter used for nucleus sampling."}
     )
     n_samples: Optional[int] = field(
         default=1,

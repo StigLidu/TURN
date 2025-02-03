@@ -22,7 +22,7 @@
 
 This repository contains the official implementation of our paper:
 
-> **Weihua Du, Yiming Yang, & Sean Welleck.**  
+> **Weihua Du, Yiming Yang, & Sean Welleck**  
 > “Optimizing Temperature for Language Models with Multi-Sample Inference.” (2025)
 
 ### Highlights
@@ -41,7 +41,7 @@ This repository contains the official implementation of our paper:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/TURN.git
+    git clone https://github.com/StigLidu/TURN.git
     cd TURN
     ```
 
@@ -93,7 +93,7 @@ python predict.py \
 
 ```bash
 python predict.py \
-    --model_path gpt2 \
+    --model_path models/meta-llama/Llama-3.1-8B-Instruct \
     --data_path data/test_data.jsonl \
     --aggregation_strategy MJ
 ```
@@ -118,7 +118,7 @@ Predicted temperature:  0.6
 To replicate the experiments reported in our paper:
 
 1. **MBPP (Code Generation)**
-   - See detailed steps in [`CODE/readme.md`](CODE/readme.md).  
+   - See instructions in [`CODE/readme.md`](CODE/readme.md).  
 
 2. **MATH (Mathematical Reasoning)**
    - See instructions in [`MATH/readme.md`](MATH/readme.md).
@@ -148,4 +148,4 @@ We extend our gratitude to the following open-source projects for their foundati
 ## Contact
 For any questions or inquiries, please contact:
 
-- Weihua Du [weihuad@cs.cmu.edu](mailto:weihuad@cs.cmu.edu)
+- Weihua Du: [weihuad@cs.cmu.edu](mailto:weihuad@cs.cmu.edu)

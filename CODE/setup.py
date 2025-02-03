@@ -25,8 +25,9 @@ ds1000_requirements = [
 ]
 
 setup(
-    name="Code_Eval",
+    name="bigcode_eval",
     python_requires='>=3.7',
+    description="A framework for the evaluation of autoregressive code generation language models.",
     license="Apache 2.0",
     packages=find_packages() ,
     install_requires=requirements,
