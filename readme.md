@@ -116,10 +116,10 @@ Predicted temperature:  [predicted temperature]
 To replicate the experiments reported in our paper:
 
 1. **MBPP (Code Generation)**
-   - See instructions in [`CODE/readme.md`](CODE/README.md).  
+   - See instructions in [`CODE/README.md`](CODE/README.md).  
 
 2. **MATH (Mathematical Reasoning)**
-   - See instructions in [`MATH/readme.md`](MATH/README.md).
+   - See instructions in [`MATH/README.md`](MATH/README.md).
 ---
 
 ## License
