@@ -55,7 +55,7 @@ This repository contains the official implementation of our paper:
     ```bash
     pip install -r requirements.txt
     ```
-   > *Note:* For GPU-based inference, ensure you have the necessary CUDA libraries and drivers installed.
+   > *Note:* For GPU-based inference, ensure the necessary CUDA libraries and drivers are installed.
 
 ---
 
@@ -103,7 +103,7 @@ Predicted temperature:  [predicted temperature]
 
 ### Arguments
 
-- **`--model_path`**: Path to or name of the model (e.g., a Hugging Face model like `gpt2`, `EleutherAI/gpt-neo-2.7B`, or a local checkpoint).
+- **`--model_path`**: Path to or name of the model (e.g., a Hugging Face model like `nvidia/OpenMath2-Llama3.1-8B`, or a local checkpoint).
 - **`--data_path`**: Path to the JSONL file containing the test data.
 - **`--aggregation_strategy`**: Currently supports `MJ` (Majority Voting) or `BofN` (Best-of-N).
 - **`--num_samples`** (optional): Number of samples to estimate entropy (default: `N=32`).
