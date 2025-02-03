@@ -116,16 +116,15 @@ Predicted temperature:  [predicted temperature]
 To replicate the experiments reported in our paper:
 
 1. **MBPP (Code Generation)**
-   - See instructions in [`CODE/readme.md`](CODE/readme.md).  
+   - See instructions in [`CODE/readme.md`](CODE/README.md).  
 
 2. **MATH (Mathematical Reasoning)**
-   - See instructions in [`MATH/readme.md`](MATH/readme.md).
+   - See instructions in [`MATH/readme.md`](MATH/README.md).
 ---
 
 ## License
 
-This project is released under the [MIT License](LICENSE).  
-You are free to use, modify, and distribute this software in accordance with the license terms.
+This project is released under the [MIT License](LICENSE).
 
 ## Citation
 
