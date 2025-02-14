@@ -23,7 +23,7 @@
 This repository contains the official implementation of our paper:
 
 > **Weihua Du, Yiming Yang, & Sean Welleck**  
-> “Optimizing Temperature for Language Models with Multi-Sample Inference.” (2025)
+> [“Optimizing Temperature for Language Models with Multi-Sample Inference.” (2025)](https://arxiv.org/abs/2502.05234)
 
 ### Highlights
 
