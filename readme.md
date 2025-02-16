@@ -129,8 +129,14 @@ This project is released under the [MIT License](LICENSE).
 ## Citation
 
 If you find our work useful in your research, please use the following BibTeX reference:
-
-(Coming soon)
+```bibtex
+@article{du2025optimizing,
+  title={Optimizing Temperature for Language Models with Multi-Sample Inference},
+  author={Du, Weihua and Yang, Yiming and Welleck, Sean},
+  journal={arXiv preprint arXiv:2502.05234},
+  year={2025}
+}
+```
 
 ## Acknowledgements
 
